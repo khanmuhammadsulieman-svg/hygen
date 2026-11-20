@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <title>HeyGen Studio — AI Video Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">H</span><span>heygen<span class="brand-light">studio</span><small>PERSONAL WORKSPACE</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav-item active" data-view="create"><span>✦</span> Create video</button>
+    <button class="nav-item" data-view="history"><span>◷</span> Video history</button>
+    <div class="side-bottom">
+      <div class="usage-card"><div class="usage-top"><span class="dot"></span><span id="connectionLabel">Not connected</span></div><p>Connect your HeyGen API key to access your workspace.</p><button class="text-button" id="openSettings">Configure API key ↗</button></div>
+      <div class="profile"><div class="avatar-initial">S</div><div><strong>Studio workspace</strong><small>Personal account</small></div><button class="more" id="openSettings2">•••</button></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div class="crumb">Workspace <span>/</span> <b id="pageName">Create video</b></div><div class="top-actions"><span class="secure-label"> <i></i> PRIVATE WORKSPACE</span><button class="icon-btn" id="topSettings" aria-label="Settings">⚙</button></div></header>
+    <section id="createView" class="view">
+      <div class="page-heading"><div><div class="eyebrow">HEYGEN VIDEO GENERATION</div><h1>Bring your words <span>to life.</span></h1><p>Create studio-quality avatar videos from a simple script.</p></div><div class="heading-chip"><span class="spark">✦</span> Powered by HeyGen API</div></div>
+      <div class="workspace-grid">
+        <section class="panel editor-panel">
+          <div class="panel-heading"><div><span class="step">01</span><div><h2>Video details</h2><p>Give your video a name and write your script.</p></div></div><span class="optional">STEP 1 OF 3</span></div>
+          <label class="field-label" for="videoTitle">VIDEO TITLE</label>
+          <input id="videoTitle" class="control" maxlength="120" placeholder="e.g. Product introduction">
+          <div class="label-row"><label class="field-label" for="script">YOUR SCRIPT</label><span class="counter" id="charCount">0 / 5,000</span></div>
+          <textarea id="script" class="control script-box" maxlength="5000" placeholder="Start writing what you want your AI avatar to say...&#10;&#10;Tip: Use short, natural sentences for the best delivery."></textarea>
+          <div class="script-footer"><span>✧ Natural language works best</span><button id="clearScript" class="text-button">Clear script</button></div>
+          <div class="section-divider"></div>
+          <div class="panel-heading compact"><div><span class="step">02</span><div><h2>Choose your presenter</h2><p>Select an avatar from your HeyGen workspace.</p></div></div><button class="subtle-btn" id="refreshAvatars">↻ Refresh</button></div>
+          <div class="select-wrap"><select id="avatarSelect" class="control"><option value="">Connect API to load avatars</option></select></div>
+          <div id="avatarPreview" class="avatar-preview"><div class="avatar-placeholder">✦</div><div><strong>No avatar selected</strong><small>Your selected presenter will appear here.</small></div></div>
+          <div class="section-divider"></div>
+          <div class="panel-heading compact"><div><span class="step">03</span><div><h2>Voice & output</h2><p>Fine-tune how your video looks and sounds.</p></div></div></div>
+          <div class="two-col">
+            <div><label class="field-label" for="voiceSelect">VOICE</label><select id="voiceSelect" class="control"><option value="">Avatar default voice</option></select></div>
+            <div><label class="field-label" for="ratio">ASPECT RATIO</label><select id="ratio" class="control"><option value="16:9">Landscape · 16:9</option><option value="9:16">Portrait · 9:16</option><option value="1:1">Square · 1:1</option><option value="4:5">Portrait · 4:5</option><option value="5:4">Landscape · 5:4</option><option value="auto">Auto</option></select></div>
+          </div>
+          <div class="two-col lower-fields">
+            <div><label class="field-label" for="resolution">RESOLUTION</label><select id="resolution" class="control"><option value="720p">720p · Standard</option><option value="1080p">1080p · Full HD</option><option value="4k">4K · Ultra HD</option></select></div>
+            <label class="toggle-row"><span><b>Captions</b><small>Generate subtitle file</small></span><input type="checkbox" id="captions"><i></i></label>
+          </div>
+          <div class="generate-area"><div class="cost-note"><span>ⓘ</span> Generation uses your HeyGen API credits.</div><button class="generate-btn" id="generateBtn"><span>✦</span> Generate video <b>→</b></button></div>
+          <div id="notice" class="notice" role="status"></div>
+        </section>
+        <aside class="right-column">
+          <section class="panel preview-panel"><div class="preview-head"><div><h2>Preview</h2><p>Your video will appear here.</p></div><span class="live-pill"><i></i> LIVE PREVIEW</span></div>
+            <div class="preview-stage" id="previewStage"><div class="preview-orb">✦</div><div class="preview-copy"><strong>Your next video starts here</strong><span>Choose an avatar and write a script to get started.</span></div><div class="stage-corner">HEYGEN STUDIO</div></div>
+            <div class="preview-foot"><span>MP4 VIDEO</span><span>HD READY</span></div>
+          </section>
+          <section class="panel tips-panel"><div class="tips-icon">✧</div><div><h3>Make it sound natural</h3><p>Write like you speak. Short sentences, clear punctuation and a conversational tone help your avatar deliver a more engaging performance.</p></div></section>
+          <section class="panel status-panel"><div class="status-title"><h3>Workspace status</h3><span class="status-badge" id="statusBadge">Offline</span></div><div class="status-line"><span>API connection</span><b id="apiStatus">Not configured</b></div><div class="status-line"><span>Avatar library</span><b id="avatarStatus">Not loaded</b></div><div class="status-line"><span>Video engine</span><b>HeyGen v3</b></div></section>
+        </aside>
+      </div>
+    </section>
+
+    <section id="historyView" class="view hidden">
+      <div class="page-heading"><div><div class="eyebrow">YOUR CREATION LIBRARY</div><h1>Video <span>history.</span></h1><p>Track your renders and revisit completed videos.</p></div><button class="subtle-btn" id="refreshHistory">↻ Refresh history</button></div>
+      <section class="panel history-panel"><div class="history-head"><h2>Recent generations</h2><span id="historyCount">0 videos</span></div><div id="historyList" class="history-list"><div class="empty-state"><div>◷</div><b>No videos yet</b><p>Your generated videos will show up here.</p></div></div></section>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop hidden" id="settingsModal">
+  <section class="modal panel"><button class="modal-close" id="closeSettings">×</button><div class="eyebrow">CONNECTION SETTINGS</div><h2>Connect HeyGen</h2><p class="modal-desc">Add your HeyGen API key to connect this studio to your workspace.</p>
+    <label class="field-label" for="apiKey">HEYGEN API KEY</label><div class="key-wrap"><input type="password" id="apiKey" class="control" placeholder="Paste your API key here" autocomplete="off"><button id="toggleKey" type="button">Show</button></div>
+    <div class="security-note"><span>▣</span><p>Your key is sent to this app's backend and held in server-side session memory. It is not saved in browser storage or included in frontend code. Disconnect to clear it.</p></div>
+    <button class="generate-btn modal-connect" id="connectBtn">Connect API <b>→</b></button><button class="disconnect-btn" id="disconnectBtn">Disconnect API key</button>
+    <p class="modal-help">Get your API key from <a href="https://app.heygen.com/settings?nav=API" target="_blank" rel="noreferrer">HeyGen Developer settings ↗</a></p>
+  </section>
+</div>
+<script src="/app.js"></script>
+</body></html>
